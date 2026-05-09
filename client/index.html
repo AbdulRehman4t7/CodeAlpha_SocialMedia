@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SocialPulse — Connect & Share</title>
+  <meta name="description" content="SocialPulse — A modern social media platform to share moments, connect with friends, and discover new content." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- AUTH PAGES (shown when not logged in) -->
+  <div id="auth-section">
+    <!-- Login Page -->
+    <div id="login-page" class="auth-page active-page">
+      <div class="auth-container">
+        <div class="auth-brand">
+          <div class="brand-logo">⚡</div>
+          <h1 class="brand-name">SocialPulse</h1>
+          <p class="brand-tagline">Share moments. Build connections.</p>
+        </div>
+        <div class="auth-card">
+          <h2>Welcome back</h2>
+          <p class="auth-subtitle">Sign in to your account</p>
+          <div id="login-error" class="alert alert-error hidden"></div>
+          <form id="login-form">
+            <div class="form-group">
+              <label for="login-email">Email</label>
+              <input type="email" id="login-email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="btn btn-primary btn-full" id="login-btn">
+              <span class="btn-text">Sign In</span>
+              <span class="btn-loader hidden">⏳</span>
+            </button>
+          </form>
+          <p class="auth-switch">Don't have an account? <a href="#" id="go-register">Create one</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Register Page -->
+    <div id="register-page" class="auth-page">
+      <div class="auth-container">
+        <div class="auth-brand">
+          <div class="brand-logo">⚡</div>
+          <h1 class="brand-name">SocialPulse</h1>
+          <p class="brand-tagline">Join millions sharing their world.</p>
+        </div>
+        <div class="auth-card">
+          <h2>Create account</h2>
+          <p class="auth-subtitle">Start your journey today</p>
+          <div id="register-error" class="alert alert-error hidden"></div>
+          <form id="register-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="reg-name">Full Name</label>
+                <input type="text" id="reg-name" placeholder="John Doe" required />
+              </div>
+              <div class="form-group">
+                <label for="reg-username">Username</label>
+                <input type="text" id="reg-username" placeholder="johndoe" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="reg-email">Email</label>
+              <input type="email" id="reg-email" placeholder="john@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="reg-password">Password</label>
+              <input type="password" id="reg-password" placeholder="Min. 6 characters" required />
+            </div>
+            <button type="submit" class="btn btn-primary btn-full" id="register-btn">
+              <span class="btn-text">Create Account</span>
+              <span class="btn-loader hidden">⏳</span>
+            </button>
+          </form>
+          <p class="auth-switch">Already have an account? <a href="#" id="go-login">Sign in</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN APP (shown when logged in) -->
+  <div id="app-section" class="hidden">
+    <!-- Sidebar Navigation -->
+    <nav id="sidebar">
+      <div class="sidebar-brand">
+        <span class="brand-logo">⚡</span>
+        <span class="brand-name">SocialPulse</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#" class="nav-link active" data-page="home" id="nav-home"><span class="nav-icon">🏠</span><span class="nav-label">Home</span></a></li>
+        <li><a href="#" class="nav-link" data-page="explore" id="nav-explore"><span class="nav-icon">🔍</span><span class="nav-label">Explore</span></a></li>
+        <li><a href="#" class="nav-link" data-page="notifications" id="nav-notifications"><span class="nav-icon">🔔</span><span class="nav-label">Notifications</span><span id="notif-badge" class="badge hidden">0</span></a></li>
+        <li><a href="#" class="nav-link" data-page="profile" id="nav-profile"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></a></li>
+      </ul>
+      <div class="sidebar-user" id="sidebar-user">
+        <img id="sidebar-avatar" src="" alt="Avatar" class="avatar-sm" />
+        <div class="sidebar-user-info">
+          <span id="sidebar-name" class="sidebar-name"></span>
+          <span id="sidebar-username" class="sidebar-username"></span>
+        </div>
+        <button id="logout-btn" class="logout-btn" title="Logout">🚪</button>
+      </div>
+    </nav>
+
+    <!-- Mobile Bottom Nav -->
+    <nav id="mobile-nav">
+      <a href="#" class="mobile-nav-link active" data-page="home">🏠</a>
+      <a href="#" class="mobile-nav-link" data-page="explore">🔍</a>
+      <a href="#" class="mobile-nav-link" data-page="notifications">🔔</a>
+      <a href="#" class="mobile-nav-link" data-page="profile">👤</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+
+      <!-- Home / Feed Page -->
+      <div id="home-page" class="page active-page">
+        <div class="page-header">
+          <h1>Home Feed</h1>
+        </div>
+        <!-- Create Post Card -->
+        <div class="create-post-card" id="create-post-card">
+          <img id="cp-avatar" src="" alt="You" class="avatar-md" />
+          <div class="create-post-body">
+            <textarea id="post-content" placeholder="What's on your mind?" rows="2" maxlength="2200"></textarea>
+            <div id="post-image-preview" class="image-preview hidden">
+              <img id="post-img-prev" src="" alt="Preview" />
+              <button id="remove-post-img" class="remove-img-btn">✕</button>
+            </div>
+            <div class="create-post-actions">
+              <label for="post-image-input" class="btn btn-ghost btn-sm">📷 Photo</label>
+              <input type="file" id="post-image-input" accept="image/*" class="hidden" />
+              <span id="char-count" class="char-count">2200</span>
+              <button id="submit-post-btn" class="btn btn-primary btn-sm">Post</button>
+            </div>
+          </div>
+        </div>
+        <!-- Feed Posts -->
+        <div id="feed-posts" class="posts-feed"></div>
+        <div id="feed-loader" class="loader-container hidden"><div class="spinner"></div></div>
+        <div id="feed-empty" class="empty-state hidden">
+          <div class="empty-icon">🌱</div>
+          <h3>Your feed is empty</h3>
+          <p>Follow some users to see their posts here, or explore public posts.</p>
+          <button class="btn btn-primary" onclick="showPage('explore')">Explore Posts</button>
+        </div>
+        <div id="feed-pagination" class="pagination hidden">
+          <button id="load-more-feed" class="btn btn-ghost">Load More</button>
+        </div>
+      </div>
+
+      <!-- Explore Page -->
+      <div id="explore-page" class="page">
+        <div class="page-header">
+          <h1>Explore</h1>
+          <div class="search-bar">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="search-input" placeholder="Search users..." />
+          </div>
+        </div>
+        <div id="search-results" class="search-results hidden"></div>
+        <div id="explore-posts" class="posts-grid"></div>
+        <div id="explore-loader" class="loader-container hidden"><div class="spinner"></div></div>
+        <div id="explore-pagination" class="pagination hidden">
+          <button id="load-more-explore" class="btn btn-ghost">Load More</button>
+        </div>
+      </div>
+
+      <!-- Post Detail Page -->
+      <div id="post-detail-page" class="page">
+        <div class="page-header">
+          <button class="btn btn-ghost btn-sm" onclick="goBack()">← Back</button>
+          <h1>Post</h1>
+        </div>
+        <div id="post-detail-content"></div>
+        <div id="post-detail-loader" class="loader-container"><div class="spinner"></div></div>
+      </div>
+
+      <!-- User Profile Page -->
+      <div id="profile-page" class="page">
+        <div id="profile-content"></div>
+        <div id="profile-loader" class="loader-container"><div class="spinner"></div></div>
+      </div>
+
+      <!-- Edit Profile Page -->
+      <div id="edit-profile-page" class="page">
+        <div class="page-header">
+          <button class="btn btn-ghost btn-sm" onclick="goBack()">← Back</button>
+          <h1>Edit Profile</h1>
+        </div>
+        <div class="edit-profile-card">
+          <div class="avatar-upload-wrap">
+            <img id="edit-avatar-preview" src="" alt="Avatar" class="avatar-xl" />
+            <label for="edit-avatar-input" class="avatar-upload-btn">📷 Change Photo</label>
+            <input type="file" id="edit-avatar-input" accept="image/*" class="hidden" />
+          </div>
+          <div id="edit-error" class="alert alert-error hidden"></div>
+          <div id="edit-success" class="alert alert-success hidden"></div>
+          <form id="edit-profile-form">
+            <div class="form-group">
+              <label for="edit-name">Full Name</label>
+              <input type="text" id="edit-name" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label for="edit-bio">Bio</label>
+              <textarea id="edit-bio" placeholder="Tell the world about yourself..." rows="3" maxlength="200"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="edit-password">New Password <span class="optional">(leave blank to keep current)</span></label>
+              <input type="password" id="edit-password" placeholder="Min. 6 characters" />
+            </div>
+            <button type="submit" class="btn btn-primary" id="save-profile-btn">Save Changes</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Notifications Page -->
+      <div id="notifications-page" class="page">
+        <div class="page-header">
+          <h1>Notifications</h1>
+          <button class="btn btn-ghost btn-sm" id="mark-read-btn">Mark all read</button>
+        </div>
+        <div id="notifications-list"></div>
+        <div id="notifications-loader" class="loader-container hidden"><div class="spinner"></div></div>
+        <div id="notifications-empty" class="empty-state hidden">
+          <div class="empty-icon">🔔</div>
+          <h3>No notifications yet</h3>
+          <p>When someone likes or comments on your posts, you'll see it here.</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Toast notifications -->
+  <div id="toast-container"></div>
+
+  <!-- Modal overlay for followers/following -->
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">Followers</h3>
+        <button id="modal-close" class="modal-close">✕</button>
+      </div>
+      <div id="modal-content" class="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/posts.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/explore.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
